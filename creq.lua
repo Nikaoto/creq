@@ -85,6 +85,11 @@ local function creq(path)
       package.cpath =
          req_abs_path .. "/linux/?.so;" ..
          req_abs_path .. "/linux/?.a;" ..
+
+         -- When launched using an appimage build
+         exe_dir .. "/?.so;" ..
+         exe_dir .. "/?.a;" ..
+
          "?.so;" ..
          "?.a;" .. package.cpath
    end
