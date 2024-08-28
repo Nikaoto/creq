@@ -32,10 +32,9 @@ directories.
 6. If your dynamic libraries themselves require other libraries, place those in
    the respective OS's directory and set the library loading path of your OS to
    point to that directory. In other words, you must point:
-   
-       - `LD_LIBRARY_PATH` on Linux to the `mygame/clibs/linux` directory
-       - `DYLD_FALLBACK_LIBRARY_PATH` on OSX to the `mygame/clibs/osx` directory
-       - `PATH` on Windows to the `mygame/clibs/windows` directory
+     - `LD_LIBRARY_PATH` on Linux to the `mygame/clibs/linux` directory
+     - `DYLD_FALLBACK_LIBRARY_PATH` on OSX to the `mygame/clibs/osx` directory
+     - `PATH` on Windows to the `mygame/clibs/windows` directory
 
    Doing this will allow the libraries required by creq, which themselves
    require other dynamic libraries, to find what they need. Look
