@@ -1,8 +1,8 @@
 # creq
 
 Allows you to make use of dynamic libraries (.dll, .so, .dylib, .a, .lib) in
-Love2D in development. creq requires the correct library from a list of
-directories.
+Love2D in development, without having to build an executable. creq requires the
+correct library from a list of directories.
 
 ## Setup
 
