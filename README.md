@@ -72,3 +72,9 @@ in development:
 When the same `creq("luasteam.so")` is called on a Linux machine from an
 executable, we don't need to provide a `LD_LIBRARY_PATH` so long as we place the
 libraries in the same directory, so creq will directly load those.
+
+
+## License
+
+The dynamic libraries in `example/clibs` belong to their respective owners and
+are only here as an illustrative example, everything else is MIT licensed.
