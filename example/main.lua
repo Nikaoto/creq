@@ -19,6 +19,7 @@ https = creq("clibs/https")
 -- Use https client
 print("https.request(\"https://icanhazip.com\"):")
 local code, body, headers = https.request("https://icanhazip.com")
+print("https request sent successfully!")
 print("code:", code)
 print("body:", body)
 
@@ -33,6 +34,7 @@ print("body:", body)
 print("Loading steam...")
 local loaded = luasteam.init()
 if loaded then
+   print("Steam loaded successfully!")
    luasteam.userStats.requestCurrentStats()
    print("Steam ID:", luasteam.user.getSteamID())
 end
