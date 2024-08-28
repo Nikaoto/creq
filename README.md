@@ -54,7 +54,7 @@ the scripts do.
   1. The dynamic libraries you load want to load other libraries
   2. You are running in development, in other words, invoking `love` to run
      your app/game.
-       
+
 When you build an executable, you will be placing all your dynamic libraries
 next to it anyway, so they will be found without setting the library loading
 path on their own.
