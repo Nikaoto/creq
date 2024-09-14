@@ -6,12 +6,14 @@ creq requires the correct library from a list of directories.
 
 **The problem:**
 
-For example, you want to use a library for your game which has separate versions
-for Windows (`library.dll`), Linux (`library.so`), and MacOs (`library.so`). You
-can already see the issue - you have to rename each library based on the OS and
+For example, you want to use a library for your game which has separate versions:
+    - for Windows (`library.dll`)
+    - for Linux (`library.so`)
+    - and for MacOs (`library.so`)
+You can already see the issue - you have to rename each library based on the OS and
 check the running OS at runtime to pick the correct one. You can't just
 `require("library")` in your code - on Windows it will work, but on Linux/MacOS
-you'd need to use different names.
+you'd need to use different names to tell them apart.
 
 When you build an executable, you can `require("library")`, unless your library
 is in a different location (like `lib/`). Then doing `require("lib/library")`
@@ -20,8 +22,8 @@ need to do more checks for executable/development environment and then load it
 either from `lib/` or from `./` (the directory of the executable).
 
 And before you know it, you have all this spaghetti code just for loading a
-library. `creq` handles all this ugliness for you and imposes strict
-organization so you don't get the libraries mixed up.
+library. `creq` handles all this ugliness for you and imposes a simple and
+strict organization scheme so you don't get the libraries mixed up.
 
 ## Setup
 
@@ -45,6 +47,9 @@ organization so you don't get the libraries mixed up.
            windows/
                mylib.dll
    ```
+
+    *`creq` can be placed anywhere outside the `clibs/` directory in your project. It doesn't matter*.
+   
 5. Call `creq("clibs/mylib")` to load your library. This will work both in
    development (when invoking `love mygame/`) and in production (when running
   `mygame.exe` or `mygame.app`...)
