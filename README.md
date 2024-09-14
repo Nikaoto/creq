@@ -9,18 +9,19 @@ creq requires the correct library from a list of directories.
 For example, you want to use a library for your game which has separate versions:
   - for Windows (`library.dll`)
   - for Linux (`library.so`)
-  - and for MacOs (`library.so`)
+  - and for OSX (`library.so` or `library.dylib`)
 
 You can already see the issue - you have to rename each library based on the OS and
 check the running OS at runtime to pick the correct one. You can't just
-`require("library")` in your code - on Windows it will work, but on Linux/MacOS
+`require("library")` in your code - on Windows it will work, but on Linux/OSX
 you'd need to use different names to tell them apart.
 
-When you build an executable, you can `require("library")`, unless your library
-is in a different location (like `lib/`). Then doing `require("lib/library")`
-will work in development, but it won't work from a built executable, so now you
-need to do more checks for executable/development environment and then load it
-either from `lib/` or from `./` (the directory of the executable).
+Moreover, when you build an executable, you can only `require("library")` if the
+library is in the root of the source tree. If it's in a different location, like
+`libs/`, then `require("libs/library")` won't work here, even though it will
+work in development. So now you need to do more checks for
+executable/development environment in addition to OS checks and then load it
+either from `libs/` or from `./` (the directory of the executable).
 
 And before you know it, you have all this spaghetti code just for loading a
 library. `creq` handles all this ugliness for you and imposes a simple and
@@ -49,14 +50,15 @@ strict organization scheme so you don't get the libraries mixed up.
                mylib.dll
    ```
 
-    *`creq` can be placed anywhere outside the `clibs/` directory in your project. It doesn't matter*.
+    *`creq.lua` can be placed anywhere outside the `clibs/` directory in your project. It doesn't matter*.
    
 5. Call `creq("clibs/mylib")` to load your library. This will work both in
    development (when invoking `love mygame/`) and in production (when running
   `mygame.exe` or `mygame.app`...)
 6. If your dynamic libraries themselves require other libraries, place those in
-   the respective OS's directory and set the library loading path of your OS to
-   point to that directory. In other words, you must point:
+   the respective OS's directory (See "extras" section below) and set the
+   library loading path of your OS to point to that directory. In other words,
+   you must point:
      - `LD_LIBRARY_PATH` on Linux to the `mygame/clibs/linux` directory
      - `DYLD_FALLBACK_LIBRARY_PATH` on OSX to the `mygame/clibs/osx` directory
      - `PATH` on Windows to the `mygame/clibs/windows` directory
@@ -97,6 +99,18 @@ in development:
 When the same `creq("luasteam.so")` is called on a Linux machine from an
 executable, we don't need to provide a `LD_LIBRARY_PATH` so long as we place the
 libraries in the same directory, so creq will directly load those.
+
+## Extras
+
+When Love2D looks for dynamic libraries from an executable, it looks at
+different directories for each OS. When you do `require("mylib")` or
+`creq("clibs/mylib")` from a packaged game, this is where it looks:
+    - on Windows, right next to the running .exe file
+    - on OSX, inside the .app/ directory in `mygame.app/Contents/Resources/.`
+    - on Linux, I'm not sure, but I do `LD_LIBRARY_PATH="./:$LD_LIBRARY_PATH"`
+      inside the package from a launch script, which makes it look inside that
+      directory so I place all the libraries there.
+
 
 ## License
 
