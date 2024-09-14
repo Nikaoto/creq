@@ -7,9 +7,10 @@ creq requires the correct library from a list of directories.
 **The problem:**
 
 For example, you want to use a library for your game which has separate versions:
-    - for Windows (`library.dll`)
-    - for Linux (`library.so`)
-    - and for MacOs (`library.so`)
+  - for Windows (`library.dll`)
+  - for Linux (`library.so`)
+  - and for MacOs (`library.so`)
+
 You can already see the issue - you have to rename each library based on the OS and
 check the running OS at runtime to pick the correct one. You can't just
 `require("library")` in your code - on Windows it will work, but on Linux/MacOS
