@@ -1,8 +1,27 @@
 # creq
 
-Allows you to make use of dynamic libraries (.dll, .so, .dylib, .a, .lib) in
-Love2D in development, without having to build an executable. creq requires the
-correct library from a list of directories.
+Allows you to make use of dynamic libraries (.dll, .so, .dylib, .a, .lib) in an
+organized manner for multiple OSes both with an executable and in development.
+creq requires the correct library from a list of directories.
+
+**The problem:**
+
+For example, you want to use a library for your game which has separate versions
+for Windows (`library.dll`), Linux (`library.so`), and MacOs (`library.so`). You
+can already see the issue - you have to rename each library based on the OS and
+check the running OS at runtime to pick the correct one. You can't just
+`require("library")` in your code - on Windows it will work, but on Linux/MacOS
+you'd need to use different names.
+
+When you build an executable, you can `require("library")`, unless your library
+is in a different location (like `lib/`). Then doing `require("lib/library")`
+will work in development, but it won't work from a built executable, so now you
+need to do more checks for executable/development environment and then load it
+either from `lib/` or from `./` (the directory of the executable).
+
+And before you know it, you have all this spaghetti code just for loading a
+library. `creq` handles all this ugliness for you and imposes strict
+organization so you don't get the libraries mixed up.
 
 ## Setup
 
@@ -66,13 +85,12 @@ in development:
   2. The `luasteam.so` library itself will try to load
      `libsteam_api.so` from various directories all over the
      system, including those given in `LD_LIBRARY_PATH`.
-  3. If the directory `example/clibs/linux` is given in `LD_LIBRARY_PATH`,
+  3. If the directory `example/clibs/linux` is given in `LD_LIBRARY_PATH`, then
      `example/clibs/linux/libsteam_api.so` will be found and loaded.
 
 When the same `creq("luasteam.so")` is called on a Linux machine from an
 executable, we don't need to provide a `LD_LIBRARY_PATH` so long as we place the
 libraries in the same directory, so creq will directly load those.
-
 
 ## License
 
