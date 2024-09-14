@@ -18,14 +18,17 @@ you'd need to use different names to tell them apart.
 
 Moreover, when you build an executable, you can only `require("library")` if the
 library is in the root of the source tree. If it's in a different location, like
-`libs/`, then `require("libs/library")` won't work here, even though it will
-work in development. So now you need to do more checks for
+`libs/`, then `require("libs/library")` won't work from the executable, even
+though it will work in development. So now you need to do more checks for
 executable/development environment in addition to OS checks and then load it
 either from `libs/` or from `./` (the directory of the executable).
 
 And before you know it, you have all this spaghetti code just for loading a
 library. `creq` handles all this ugliness for you and imposes a simple and
 strict organization scheme so you don't get the libraries mixed up.
+
+`creq` also illustrates a working example of how to package Love2D games for
+multiple OSes without going insane.
 
 ## Setup
 
@@ -105,11 +108,11 @@ libraries in the same directory, so creq will directly load those.
 When Love2D looks for dynamic libraries from an executable, it looks at
 different directories for each OS. When you do `require("mylib")` or
 `creq("clibs/mylib")` from a packaged game, this is where it looks:
-    - on Windows, right next to the running .exe file
-    - on OSX, inside the .app/ directory in `mygame.app/Contents/Resources/.`
-    - on Linux, I'm not sure, but I do `LD_LIBRARY_PATH="./:$LD_LIBRARY_PATH"`
-      inside the package from a launch script, which makes it look inside that
-      directory so I place all the libraries there.
+  - on Windows, right next to the running .exe file
+  - on OSX, inside the .app/ directory in `mygame.app/Contents/Resources/.`
+  - on Linux, I'm not sure, but I do `LD_LIBRARY_PATH="./:$LD_LIBRARY_PATH"`
+    inside the package from a launch script, which makes it look inside that
+    directory so I place all the libraries there.
 
 
 ## License
