@@ -118,4 +118,4 @@ different directories for each OS. When you do `require("mylib")` or
 ## License
 
 The dynamic libraries in `example/clibs` belong to their respective owners and
-are only here as an illustrative example, everything else is MIT licensed.
+are only here as an illustrative example. Everything else is MIT licensed.
