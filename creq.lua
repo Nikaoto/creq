@@ -60,12 +60,15 @@ local function creq(path)
    local sep = is_windows() and "\\" or "/"
 
    local req_abs_path = exe_dir .. sep .. src_dir .. sep .. dirname(path)
+   local req_rel_path = src_dir .. sep .. dirname(path)
    local old_cpath = package.cpath
 
    if is_windows() then
       package.cpath =
          req_abs_path .. "\\windows\\?.dll;" ..
          req_abs_path .. "\\windows\\?.lib;" ..
+         req_rel_path .. "\\windows\\?.dll;" ..
+         req_rel_path .. "\\windows\\?.lib;" ..
          "?.lib;" ..
          "?.dll;" .. package.cpath
    elseif is_osx() then
