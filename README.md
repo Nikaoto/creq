@@ -90,16 +90,16 @@ next to it anyway, so they will be found without setting the library loading
 path on their own.
 
 ## How it works
-This is what happens when we do `creq("luasteam.so")` on a Linux machine
+This is what happens when we do `creq("luasteam")` on a Linux machine
 in development:
-  1. creq will call `require("clibs/linux/luasteam.so")`.
+  1. creq will call `require("clibs/linux/luasteam")`.
   2. The `luasteam.so` library itself will try to load
      `libsteam_api.so` from various directories all over the
      system, including those given in `LD_LIBRARY_PATH`.
   3. If the directory `example/clibs/linux` is given in `LD_LIBRARY_PATH`, then
      `example/clibs/linux/libsteam_api.so` will be found and loaded.
 
-When the same `creq("luasteam.so")` is called on a Linux machine from an
+When the same `creq("luasteam")` is called on a Linux machine from an
 executable, we don't need to provide a `LD_LIBRARY_PATH` so long as we place the
 libraries in the same directory, so creq will directly load those.
 
